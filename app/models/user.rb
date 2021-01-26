@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+    has_secure_password
+
     has_many :active_relationships, class_name: "Friendship", foreign_key: :friend_id, dependent: :destroy
     has_many :writers, through: :active_relationships, source: :writer
 

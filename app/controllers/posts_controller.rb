@@ -1,8 +1,8 @@
-class Api::V1::PostsController < ApplicationController
+class PostsController < ApplicationController
 
     def index
-        @posts = Posts.all
-        render json: @posts, only: [:title, :content]
+        @posts = Post.all
+        render json: @posts.to_json(include: :user)
     end
 
     def show
@@ -10,12 +10,14 @@ class Api::V1::PostsController < ApplicationController
         render json: @post
     end
 
+    
+
     def create
         @post = Post.new(post_params)
         if @post.save
             render json: @post
         else
-            render json: {error: @post.error.messages}
+            render json: {error: @post.errors.messages}
         end
     end
 
@@ -40,6 +42,6 @@ class Api::V1::PostsController < ApplicationController
     private
 
     def post_params
-        params.require(:post).permit(:title, :content, :tags, :user_id)
+        params.require(:post).permit!
     end
 end
