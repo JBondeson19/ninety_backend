@@ -7,7 +7,7 @@ class PostsController < ApplicationController
 
     def show
         @post = Post.find(params[:id])
-        render json: @post
+        render json: @post.to_json(include: :user)
     end
 
     
