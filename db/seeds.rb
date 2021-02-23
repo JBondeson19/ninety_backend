@@ -11,13 +11,13 @@ Post.destroy_all
 10.times do
     User.create(username: Faker::Artist.name,
                 email: Faker::Internet.email,
-                bio: Faker::GreekPhilosophers.quote )
+                password: "123456",
+                bio: Faker::JapaneseMedia::StudioGhibli.quote)
 end
 
-20.times do 
-    Post.create(title: Faker::Books::Dune.title,
-                content: Faker::Books::Dune.quote,
-                user_id: rand(2...11)
-
+30.times do 
+    Post.create(
+                content: Faker::Movies::HarryPotter.quote ,
+                user_id: rand(26...36)
     )
 end
