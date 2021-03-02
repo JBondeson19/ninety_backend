@@ -43,13 +43,27 @@ class UsersController < ApplicationController
                 errors: ['user not found']
                 }
             end
-       end
+    end
+
+    def update
+        @user = User.find(params[:id])
+            if @user.avatar.attached? 
+                @user.update(user_params)
+            elsif
+                @user.avatar.attach(io: File.open("/path/to/face.jpg"), filename: "face.jpg", content_type: "image/jpg")
+            end
+    end
 
 
     private
 
     def user_params
-        params.require(:user).permit(:username, :password, :password_confirmation, :email, :bio)
+        params.require(:user).permit(:username, 
+                                     :password, 
+                                     :password_confirmation, 
+                                     :email, 
+                                     :bio,
+                                     :avatar)
     end
 
 end

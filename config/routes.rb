@@ -3,8 +3,9 @@ Rails.application.routes.draw do
 
 
       resources :posts
-      resources :users, only: [:create, :show, :index] do
-        resources :photos, only: [:create, :show, :update, :destroy]
+
+      resources :users do
+        resources :image_elements
       end
   
       post '/login',    to: 'sessions#create'
