@@ -16,7 +16,7 @@ This is the Rails server to support user models and their respective relationshi
 
 ### Setup 
 1. Check out the repository:
-` git clone https://github.com/JBondeson19/ninety_backend`
+` git clone git@github.com:JBondeson19/ninety_backend.git`
 
 2. configure the database
 `rails db:create`
