@@ -21,10 +21,10 @@ class UsersController < ApplicationController
 
     def show
        user = User.find(params[:id])
-
+       
       if user
           render json: {
-              user: user
+              user: user.as_json(except: [:created_at, :updated_at, :password_digest])
           }
       else
         render json: {
@@ -44,8 +44,7 @@ class UsersController < ApplicationController
         @user = User.find(params[:id])
         if @user.update_attributes(params[:user])
             render json: {
-                user: @user.as_json(:except => :created_at),
-                message: "User was successfully updated"
+                user: @user
             }
         else
           render json: {
@@ -55,9 +54,6 @@ class UsersController < ApplicationController
         end
     end
     
-    
-
-  
 
     private
 
