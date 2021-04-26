@@ -16,12 +16,11 @@ class UsersController < ApplicationController
                 status: 500
             }
         end
-
     end
 
     def show
        user = User.find(params[:id])
-       
+
       if user
           render json: {
               user: user.as_json(except: [:created_at, :updated_at, :password_digest])
@@ -32,7 +31,6 @@ class UsersController < ApplicationController
             errors: ['user not found']
         }
       end
-   
     end
 
 
@@ -53,7 +51,7 @@ class UsersController < ApplicationController
           }
         end
     end
-    
+
 
     private
 

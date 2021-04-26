@@ -2,7 +2,7 @@ class PostsController < ApplicationController
 
     def index
         @posts = Post.all
-        render json: @posts
+        render json: @posts.to_json(except: [:created_at, :updated_at])
     end
 
     def show
@@ -30,7 +30,7 @@ class PostsController < ApplicationController
             render json: @post
         else
             render json: {
-                status: 500
+                status: 500,
                 message: "Something went wrong"
             }
         end
@@ -45,6 +45,6 @@ class PostsController < ApplicationController
     private
 
     def post_params
-        params.require(:post).permit(:tags)
+        params.require(:post).permit(:content, :user_id, :tags)
     end
 end
