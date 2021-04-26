@@ -35,6 +35,28 @@ class UsersController < ApplicationController
    
     end
 
+
+    def edit
+        @user = User.find(params[:id])
+    end
+
+    def update
+        @user = User.find(params[:id])
+        if @user.update_attributes(params[:user])
+            render json: {
+                user: @user.as_json(:except => :created_at),
+                message: "User was successfully updated"
+            }
+        else
+          render json: {
+              status: 500,
+              message: "Something went wrong, please try again."
+          }
+        end
+    end
+    
+    
+
   
 
     private
