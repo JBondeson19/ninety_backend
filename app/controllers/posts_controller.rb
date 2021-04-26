@@ -11,7 +11,6 @@ class PostsController < ApplicationController
     end
 
     
-
     def create
         @post = Post.new(post_params)
         if @post.save
@@ -23,20 +22,24 @@ class PostsController < ApplicationController
 
     def edit
         @post = Post.find(params[:id])
+    end
+
+    def update
+        @post = Post.find(params[:id])
         if @post.update(post_params)
-           render json: @post
+            render json: @post
         else
-            render json: {error: @post.errors.full_messages}
+            render json: {
+                status: 500
+                message: "Something went wrong"
+            }
         end
     end
+    
 
     def destroy
         @post = Post.find(params[:id])
-        if @post.destroy
-            p "post destroyed"
-        else
-            render json: {error: @post.errors.full_messages}
-        end
+        @post.destroy 
     end
 
     private
