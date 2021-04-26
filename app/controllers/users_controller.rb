@@ -1,13 +1,38 @@
 class UsersController < ApplicationController
-    has_secure_password
 
-    validates :username, :email, :password, presence: {message: "Attribute must be given"} on: :create
-    validates :email, uniqueness: true on: :create
-    validates :password, length: {minimum: 6}
 
     def create
-        @user = User.create(user_params)
+        user = User.create(user_params)
         
+        if user.valid?
+            session[:user_id] = user.id
+            render json: {
+                status: :created,
+                logged_in: true,
+                user: user
+            }
+        else
+            render json: {
+                status: 500
+            }
+        end
+
+    end
+
+    def show
+       user = User.find(params[:id])
+
+      if user
+          render json: {
+              user: user
+          }
+      else
+        render json: {
+            status: 500,
+            errors: ['user not found']
+        }
+      end
+   
     end
 
   
