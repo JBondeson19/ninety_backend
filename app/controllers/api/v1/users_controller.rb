@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class Api::V1::UsersController < ApplicationController
 
 
     def create
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
       if user
           render json: {
-              user: user.as_json(except: [:created_at, :updated_at, :password_digest])
+              user: UserSerializer.new(user) 
           }
       else
         render json: {

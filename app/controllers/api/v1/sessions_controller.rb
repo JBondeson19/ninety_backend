@@ -1,4 +1,4 @@
-class SessionsController < ApplicationController
+class Api::V1::SessionsController < ApplicationController
 
     ##creating login session
     def create
@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
         
       
         if @user && @user.authenticate(params[:password])
-            render json: @user
+            render json: @user.as_json(except: [:password_digest])
         else
             render json: {
                 message: "Oops, try again!"

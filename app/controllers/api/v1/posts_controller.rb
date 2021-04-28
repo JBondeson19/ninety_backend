@@ -1,8 +1,8 @@
-class PostsController < ApplicationController
+class Api::V1::PostsController < ApplicationController
 
     def index
         @posts = Post.all
-        render json: @posts.to_json(except: [:created_at, :updated_at])
+        render json: @posts
     end
 
     def show
