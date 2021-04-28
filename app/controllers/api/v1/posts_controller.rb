@@ -7,7 +7,7 @@ class Api::V1::PostsController < ApplicationController
 
     def show
         @post = Post.find(params[:id])
-        render json: @post.to_json(except: [:created_at, :updated_at])
+        render json: @post
     end
 
     
