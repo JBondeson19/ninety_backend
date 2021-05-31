@@ -3,10 +3,9 @@ class SessionsController < ApplicationController
     ##creating login session
     def create
         @user = User.find_by(email: params[:email])
-        
-      
         if @user && @user.authenticate(params[:password])
-            render json: {user: UserSerializer.new(@user)}
+            token = encode_token({user_id: @user.id})
+            render json: {user: UserSerializer.new(@user), token: token}
         else
             render json: {
                 message: "Oops, try again!"
@@ -17,7 +16,7 @@ class SessionsController < ApplicationController
 
     private
     def session_params
-          params.permit(:username, :password, :email)
+          params.require(:user).permit(:username, :password, :email)
     end
 
 end

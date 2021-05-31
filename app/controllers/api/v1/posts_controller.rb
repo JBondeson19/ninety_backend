@@ -1,5 +1,7 @@
 class Api::V1::PostsController < ApplicationController
 
+    before_action :authorized, only: [:create]
+
     def index
         @posts = Post.all
         render json: @posts
@@ -12,7 +14,7 @@ class Api::V1::PostsController < ApplicationController
 
     
     def create
-        @post = Post.new(post_params)
+        @post = @user.posts.new(content: params[:content])
         if @post.save
             render json: @post
         else
